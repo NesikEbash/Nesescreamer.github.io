@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скример</title>
+    <style>
+        body {
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .scary-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            max-width: 90%;
+            max-height: 90%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .sound {
+            display: none;
+        }
+
+        .warning-text {
+            position: absolute;
+            top: 30%;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10;
+            display: none;
+        }
+
+        .scary-sound {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img class="scary-image" src="https://i.pinimg.com/originals/c3/eb/22/c3eb22d57f92d5197424c6345ff8b1f4.jpg" alt="scary" id="scaryImage">
+        <div class="warning-text" id="warningText">Не пугайтесь...<br>Нажмите любую клавишу!</div>
+    </div>
+
+    <!-- Звук для скримера -->
+    <audio class="scary-sound" id="scarySound">
+        <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+    </audio>
+
+    <script>
+        // Функции для запуска скримера
+        function showScaryImage() {
+            const image = document.getElementById("scaryImage");
+            const sound = document.getElementById("scarySound");
+            const warningText = document.getElementById("warningText");
+
+            // Показываем предупреждающий текст
+            warningText.style.display = "block";
+
+            setTimeout(() => {
+                warningText.style.display = "none";
+                // Звук начинается
+                sound.play();
+
+                // Показываем пугающую картинку
+                image.style.display = "block";
+                setTimeout(() => {
+                    image.style.opacity = 1; // Постепенно показываем картинку
+                }, 100);
+
+            }, 2000);
+        }
+
+        // Действие при нажатии на клавишу
+        window.addEventListener("keydown", function () {
+            showScaryImage(); // Показать скример
+        });
+
+        // Действие при загрузке страницы, чтобы звук и картинка не проигрывались сразу
+        window.onload = function() {
+            // Скрыть картинку и звук изначально
+            document.getElementById("scaryImage").style.display = "none";
+            document.getElementById("scarySound").style.display = "none";
+        };
+    </script>
+
+</body>
+</html>
